@@ -1,0 +1,57 @@
+//测试
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.right-to-left-enter {
+  opacity: 0;
+  transform: translate(5%, 0);
+}
+//其他动画效果
+.right-to-left-enter.right-to-left-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: opacity 150ms linear, transform 200ms ease-out;
+}
+
+.right-to-left-leave {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.right-to-left-leave.right-to-left-leave-active {
+  opacity: 0;
+  transform: translate(1%, 0);
+  transition: opacity 100ms linear, transform 200ms linear;
+}
+.up-to-down-appear {
+  opacity: 0;
+  transform: translate(0, -45%);
+}
+.up-to-down-appear.up-to-down-appear-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: opacity 150ms linear, transform 200ms ease-out;
+}

@@ -1,0 +1,15 @@
+node_modules
+npm-debug.log
+.DS_Store
+
+.idea
+
+public/files/
+public/images/
+public/javascripts/
+tools/test.js
+
+test
+
+mongo-connector.log
+oplog.timestamp

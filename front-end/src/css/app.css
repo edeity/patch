@@ -1,0 +1,482 @@
+@charset "UTF-8";
+@import url(normalize.css);
+/*颜色变量*/
+/*高度*/
+/*更换字体*/
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local("Open Sans Bold"), local("OpenSans-Bold"), url(./blog.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000; }
+
+/*总体盒子布局 S*/
+* {
+  box-sizing: border-box; }
+
+.full-screen #container {
+  height: 100vh; }
+  .full-screen #container #editor {
+    height: 100vh !important;
+    width: 100vw !important; }
+    .full-screen #container #editor .patch-head {
+      display: none; }
+    .full-screen #container #editor .preview-frame {
+      height: 90%;
+      padding-bottom: 0 !important; }
+
+#patch-app {
+  width: 100vw;
+  height: 100vh;
+  min-width: 800px;
+  min-height: 570px;
+  /*该高度为公司通用手提电脑, 360游览器下的最小高度*/ }
+  #patch-app #nav {
+    height: 7vh;
+    width: 100%;
+    line-height: 7vh; }
+  #patch-app #container {
+    height: 93vh;
+    width: 100%;
+    overflow: hidden;
+    zoom: 1; }
+    #patch-app #container #sidebar, #patch-app #container #list, #patch-app #container #editor {
+      display: inline-block;
+      vertical-align: top;
+      height: 100%;
+      border-bottom: 1px solid #E0E1E5; }
+    #patch-app #container #sidebar {
+      width: 20%;
+      overflow: auto;
+      border-right: 1px solid #E0E1E5; }
+    #patch-app #container #list {
+      width: 30%;
+      overflow: hidden;
+      border-right: 1px solid #E0E1E5; }
+      #patch-app #container #list #list-content {
+        max-height: 90%;
+        overflow: auto; }
+      #patch-app #container #list #patch-list:last-child {
+        padding-bottom: 30px; }
+    #patch-app #container #editor {
+      position: relative;
+      width: 50%;
+      overflow: hidden; }
+      #patch-app #container #editor .patch-head {
+        padding: 4px;
+        border-bottom: 1px solid #E0E1E5; }
+      #patch-app #container #editor #patch-describe {
+        padding: 0 25px;
+        max-height: 95%;
+        overflow: auto; }
+      #patch-app #container #editor .editor-logo {
+        position: absolute;
+        top: 0;
+        bottom: 30%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 80px;
+        height: 80px;
+        font-size: 80px;
+        color: #E0E1E5; }
+
+/*总体盒子布局 E*/
+/*通用 S*/
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  overflow: hidden;
+  /* em : 一般用于搜索内容的高亮 */ }
+  body ul.no-list-style {
+    list-style: none;
+    padding: 0; }
+  body a.btn {
+    cursor: pointer; }
+  body span.small-tips {
+    color: palevioletred; }
+  body em {
+    color: white;
+    background-color: #FF9632;
+    font-style: normal; }
+
+/*通用 E*/
+/*主题 S*/
+/*导航栏*/
+#nav {
+  position: relative;
+  color: white;
+  background: #008FEA;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif; }
+  #nav #app-title {
+    float: left;
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    font-weight: lighter; }
+  #nav .tips {
+    display: inline-block;
+    padding: 0 10px;
+    color: rgba(255, 255, 255, 0.6);
+    background-color: #357AC8; }
+  #nav div.link-group {
+    float: right;
+    height: 100%;
+    margin: 0; }
+    #nav div.link-group .btn {
+      padding: 0 14px;
+      border-left: 1px solid #68A8EF;
+      border-right: 1px solid #377DCC;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none; }
+      #nav div.link-group .btn:first-child {
+        border-left: none; }
+      #nav div.link-group .btn:last-child {
+        border-right: none; }
+
+/* 侧边栏 S */
+#sidebar {
+  position: relative;
+  background-color: #F5F5F5; }
+  #sidebar #search-class-panel {
+    padding: 7px;
+    text-align: center;
+    border-bottom: 1px solid #E0E1E5;
+    box-shadow: 0 1px #fff; }
+    #sidebar #search-class-panel #search-panel {
+      padding: 5px;
+      margin: 0 auto;
+      color: #D9DCDF;
+      background-color: white;
+      border: 1px solid #E0E1E5;
+      text-align: left; }
+      #sidebar #search-class-panel #search-panel .search-logo {
+        padding-right: 5px; }
+      #sidebar #search-class-panel #search-panel input#search {
+        width: 80%;
+        border: none;
+        outline: none; }
+  #sidebar #categories {
+    color: #686868;
+    padding-top: 10px; }
+    #sidebar #categories .sidebar-btn {
+      padding: 10px 15px;
+      border: 2px solid transparent;
+      color: #333; }
+      #sidebar #categories .sidebar-btn:hover {
+        background-color: #E2E2E2; }
+    #sidebar #categories .category-title {
+      color: #333;
+      padding: 5px 15px; }
+    #sidebar #categories .category {
+      padding: 6px 20px;
+      margin: 2px 0 2px 20px;
+      border: 2px dotted transparent;
+      /*对一个drag-in*/
+      font-size: .9em; }
+      #sidebar #categories .category .category-logo {
+        padding-right: 5px;
+        font-size: 15px;
+        color: #F6CE62; }
+      #sidebar #categories .category:hover {
+        cursor: pointer;
+        color: black;
+        background: #E2E2E2; }
+      #sidebar #categories .category.is-active {
+        background-color: #008FEA;
+        color: white;
+        border: 1px solid #2280ED; }
+      #sidebar #categories .category.trash {
+        margin-left: 0px;
+        font-size: 15px; }
+        #sidebar #categories .category.trash i {
+          font-size: 20px;
+          color: #959FB1; }
+    #sidebar #categories .drag-in {
+      border: 2px dotted #888; }
+  #sidebar i.btn-logo {
+    display: inline-block;
+    width: 25px;
+    text-align: center; }
+  #sidebar .category-editor {
+    /*点击可编辑分类时btn转变为input的样式*/
+    width: 80%;
+    padding: 0;
+    border: none;
+    outline: none; }
+
+/*侧边栏 E*/
+/*补丁列表 S*/
+/*补丁简介列表*/
+#list ul {
+  margin: 0;
+  padding: 0; }
+
+#list #list-search {
+  width: 250px;
+  margin: 0 auto; }
+  #list #list-search input {
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #E0E1E5;
+    border-radius: 20px;
+    color: #595959;
+    outline: none; }
+
+#list #list-search-bar {
+  padding: 8px;
+  border-bottom: 1px solid #E0E1E5; }
+
+#list div.tips {
+  color: palevioletred;
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #E0E1E5; }
+
+#list #patch-list li {
+  position: relative;
+  display: block;
+  padding: 15px;
+  border-bottom: 1px solid #E0E1E5;
+  color: #393939;
+  font-size: 12px; }
+
+#list #patch-list .patch-brief {
+  width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+  #list #patch-list .patch-brief i.fa {
+    margin-right: 8px;
+    font-size: 20px;
+    color: #5C9DF4; }
+
+#list #patch-list .time {
+  float: right;
+  color: #888888;
+  font-size: 12px; }
+
+#list #patch-list .list-tools {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: none; }
+  #list #patch-list .list-tools .btn {
+    color: #959FB0; }
+  #list #patch-list .list-tools .btn:hover {
+    color: #4c81c9; }
+
+#list #patch-list li:hover {
+  background: #F6F7F9; }
+  #list #patch-list li:hover .list-tools {
+    display: inline-block;
+    float: right;
+    font-size: 18px; }
+
+#list #patch-list li.active {
+  background-color: #EAF0FA; }
+
+#list #patch-counter {
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  font-size: 12px; }
+  #list #patch-counter #patch-brief {
+    padding: 10px; }
+    #list #patch-counter #patch-brief #list-page-controller {
+      float: right;
+      font-size: 18px;
+      color: #E0E1E5; }
+      #list #patch-counter #patch-brief #list-page-controller .pageNumBtn {
+        margin: 0 10px;
+        cursor: pointer; }
+      #list #patch-counter #patch-brief #list-page-controller .pageNumBtn:hover {
+        color: #008FEA; }
+      #list #patch-counter #patch-brief #list-page-controller #pageNum {
+        color: #393939; }
+
+/*补丁列表 E*/
+/*补丁详细内容 S*/
+/* 头部标题栏 S */
+#editor .editor-title {
+  display: inline-block;
+  vertical-align: middle;
+  width: 85%;
+  border: none; }
+
+#editor #p-head-span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px; }
+
+#editor #p-head-input {
+  padding: 10px;
+  margin: 0;
+  outline: none; }
+
+#editor div.tips {
+  position: absolute;
+  right: 10px;
+  margin: 10px;
+  color: palevioletred; }
+
+#editor #patch-tools {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 8px;
+  color: #959FB1;
+  background-color: white; }
+  #editor #patch-tools a.btn, #editor #patch-tools a.btn:visited {
+    position: relative;
+    margin: 0 5px;
+    color: #959FB1; }
+    #editor #patch-tools a.btn .tools-tips, #editor #patch-tools a.btn:visited .tools-tips {
+      position: absolute;
+      left: -12px;
+      top: 25px;
+      color: white;
+      padding: 5px;
+      font-size: 12px;
+      background-color: #343434;
+      border-radius: 5px; }
+  #editor #patch-tools a.btn:hover {
+    color: #398DEE; }
+
+#editor #editor-patch-btn {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #E2E2E2;
+  border-radius: 5px;
+  color: #5C9DF4; }
+
+#editor #editor-patch-btn:hover {
+  color: #398DEE;
+  border: 1px solid #aaa; }
+
+/* 编辑框 */
+#editor .preview-frame {
+  box-sizing: border-box;
+  width: 100%;
+  height: 92%;
+  margin: 0 10px;
+  padding-bottom: 20px;
+  border: none; }
+
+#editor span.small-tips {
+  display: inline-block;
+  margin: 5px 10px; }
+
+#editor .pst, #editor #editor .psv {
+  display: inline-block;
+  white-space: nowrap;
+  /*overflow: hidden;*/
+  text-overflow: ellipsis; }
+
+#editor .pst {
+  padding: 7px 12px;
+  width: 20%; }
+
+#editor .psv {
+  padding: 5px 12px;
+  width: 60%; }
+
+#editor .module-name {
+  padding: 2px;
+  margin-right: 2px;
+  border-radius: 3px;
+  border: 1px solid #E0E1E5;
+  color: #5C9DF4; }
+
+#editor textarea {
+  display: block;
+  width: 90%;
+  padding: 10px;
+  min-height: 250px;
+  margin: 0 auto;
+  resize: none; }
+
+#editor textarea.paraLike {
+  min-height: 250px;
+  resize: none;
+  border: none;
+  outline: none; }
+
+#editor #upload-patch {
+  margin-left: 35px; }
+  #editor #upload-patch input {
+    margin-top: 20px; }
+
+#editor a.patch-link-btn {
+  display: inline-block;
+  padding: 5px;
+  color: #5C9DF4;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid #E0E1E5;
+  border-top: none;
+  font-size: 20px;
+  text-decoration: none; }
+
+#editor a.patch-link-btn:hover {
+  color: #398DEE; }
+
+#editor .btn.is-active {
+  color: #007AC7; }
+
+/* 内容栏 E */
+/*补丁详细内容 E*/
+/* 上传状态栏 S */
+#upload-panel {
+  text-align: center; }
+  #upload-panel a#bulk-upload {
+    display: block;
+    padding: 10px 5px;
+    color: white;
+    background: #5C9DF4; }
+    #upload-panel a#bulk-upload:hover {
+      background: #2280ED; }
+  #upload-panel #upload-status-panel {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    width: 400px;
+    padding-right: 10px;
+    border-bottom: 1px solid #E0E1E5;
+    box-shadow: 0 1px 16px 0 rgba(154, 154, 154, 0.4);
+    background: rgba(255, 255, 255, 0.98);
+    text-align: left; }
+    #upload-panel #upload-status-panel span.status-num {
+      display: inline-block;
+      padding: 5px 10px;
+      color: white; }
+    #upload-panel #upload-status-panel .status-num.total-num {
+      background: #008FEA; }
+    #upload-panel #upload-status-panel .status-num.failure-num {
+      background: #FF7070; }
+    #upload-panel #upload-status-panel .status-num.success-num {
+      background: #71B362; }
+  #upload-panel #upload-status-tools {
+    float: right; }
+    #upload-panel #upload-status-tools .btn {
+      margin: .3rem;
+      color: #393939; }
+    #upload-panel #upload-status-tools .btn:hover {
+      color: #007AC7; }
+  #upload-panel #upload-file-detail .failure {
+    color: #FF7070; }
+  #upload-panel #upload-file-detail .success {
+    color: #71B362; }
+  #upload-panel #upload-file-detail .file-line {
+    padding: 5px;
+    margin: 5px; }
+    #upload-panel #upload-file-detail .file-line .upload-msg.failure {
+      margin-left: 1rem; }
+  #upload-panel #upload-file-detail .file-line:hover {
+    background: #E0E1E5; }
+
+/* 上传状态栏 E */
+/* 主题 E*/
