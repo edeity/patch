@@ -7,4 +7,3 @@
 - powered by：`react` + `express` + `mongodb` + `elasticsearch`
 - more：[doc](https://blog.edeity.me/2016/09/02/2016/patch-doc/)
 
-
